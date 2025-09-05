@@ -21,18 +21,46 @@ setInterval(updateClock, 1000);
 // Background image upload logic
 const uploadBtn = document.getElementById('bg-upload-btn');
 const uploadInput = document.getElementById('bg-upload-input');
+const defaultBg = "url('assets/background.jpg')";
+
+// Helper to check if custom background is set
+function isCustomBgSet() {
+    return !!localStorage.getItem('customBg');
+}
+
+// Update button state (icon/title) based on background
+function updateBtnState() {
+    if (isCustomBgSet()) {
+        uploadBtn.innerHTML = "&#10227;"; // Reset icon
+        uploadBtn.title = "Reset to Default Background";
+    } else {
+        uploadBtn.innerHTML = "&#9881;"; // Upload icon
+        uploadBtn.title = "Change Background";
+    }
+}
 
 // Load background from localStorage if available
 function loadCustomBackground() {
     const bgData = localStorage.getItem('customBg');
     if (bgData) {
         document.body.style.backgroundImage = `url(${bgData})`;
+    } else {
+        document.body.style.backgroundImage = defaultBg;
     }
+    updateBtnState();
 }
 loadCustomBackground();
 
 uploadBtn.addEventListener('click', () => {
-    uploadInput.click();
+    if (isCustomBgSet()) {
+        // Reset to default
+        localStorage.removeItem('customBg');
+        document.body.style.backgroundImage = defaultBg;
+        updateBtnState();
+    } else {
+        // Open upload dialog
+        uploadInput.click();
+    }
 });
 
 uploadInput.addEventListener('change', (e) => {
@@ -43,6 +71,7 @@ uploadInput.addEventListener('change', (e) => {
         const dataUrl = evt.target.result;
         document.body.style.backgroundImage = `url(${dataUrl})`;
         localStorage.setItem('customBg', dataUrl);
+        updateBtnState();
     };
     reader.readAsDataURL(file);
 });
