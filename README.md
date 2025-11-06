@@ -19,9 +19,6 @@ A minimal Chrome Extension that replaces the "New Tab" page with a beautiful clo
 - The image is stored locally in your browser.
 - To reset, clear the extension's local storage or upload a new image.
 
-## Screenshot
-![Screenshot](assets/screenshot.png)
-
 ## License
 This project is licensed under the [MIT License](LICENSE).
 
