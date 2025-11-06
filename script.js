@@ -21,7 +21,7 @@ setInterval(updateClock, 1000);
 // Background image upload logic
 const uploadBtn = document.getElementById('bg-upload-btn');
 const uploadInput = document.getElementById('bg-upload-input');
-const defaultBg = "url('assets/background.jpg')";
+const defaultBg = "url('assets/background.png')";
 
 // Helper to check if custom background is set
 function isCustomBgSet() {
